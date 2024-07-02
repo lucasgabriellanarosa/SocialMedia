@@ -1,28 +1,28 @@
-import React from 'react'
-import axios from 'axios';
-import { useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios'
+import React, { useRef } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
-const Login = () => {
+const Register = () => {
 
     const navigate = useNavigate();
 
-    let usernameForm = useRef('');
+
+    let username = useRef('');
     let password = useRef('');
-  
-  
-    const userLogin = (e) => {
-      e.preventDefault()
-  
-      const loginData = {
-        username: usernameForm.current.value,
-        password: password.current.value
-      };
-  
-      axios.post(`http://127.0.0.1:8000/api/login/`, loginData)
-        .then((res) => navigate('/'))
-        .catch((err) => console.log(err))
-  
+    let confirm_password = useRef('');
+
+    const userRegister = (e) => {
+        e.preventDefault()
+
+        const registerData = {
+            username: username.current.value,
+            password: password.current.value,
+            confirm_password: confirm_password.current.value
+        }
+
+        axios.post(`http://127.0.0.1:8000/api/register/`, registerData)
+            .then((res) => console.log(res))
+        navigate('/');
     }
 
     return (
@@ -38,15 +38,15 @@ const Login = () => {
                     </div>
                     <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                         <form
-                            onSubmit={(e) => userLogin(e)}
+                            onSubmit={(e) => userRegister(e)}
                         >
-                            <h1 className="display-6">Login</h1>
+                            <h1 class="display-6">Create an account</h1>
                             <div className="form-outline mb-4">
                                 <input
                                     type="text"
                                     className="form-control form-control-lg"
                                     placeholder="Enter username"
-                                    name='usernameForm' ref={usernameForm}
+                                    name='username' ref={username}
                                 />
                                 <label className="form-label">
                                     Username
@@ -65,16 +65,28 @@ const Login = () => {
                                 </label>
                             </div>
 
+                            <div className="form-outline mb-3">
+                                <input
+                                    type="password"
+                                    className="form-control form-control-lg"
+                                    placeholder="Confirm password"
+                                    name='confirm_password' ref={confirm_password}
+                                />
+                                <label className="form-label">
+                                    Confirm Password
+                                </label>
+                            </div>
+
                             <div className="text-center text-lg-start mt-4 pt-2">
                                 <button
                                     type='submit'
                                     className="btn btn-primary btn-lg"
                                     style={{ paddingLeft: '2.5rem', paddingRight: '2.5rem' }}
                                 >
-                                    Login
+                                    Register
                                 </button>
                                 <p className="small fw-bold mt-2 pt-1 mb-0">
-                                    Don't have an account? <Link to={'/register'} className="link-danger">Register</Link>
+                                        Already have an account? <Link to={'/'} className="link-danger">Log in</Link>
                                 </p>
                             </div>
                         </form>
@@ -85,4 +97,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Register

@@ -9,7 +9,8 @@ from django.views.decorators.http import require_POST
 from .models import *
 import json
 from django.views.decorators.csrf import csrf_exempt
-
+from django.core import serializers
+from django.core.serializers import serialize
 
 
 # Create an account
@@ -66,6 +67,14 @@ def is_user_logged(request):
         return JsonResponse({"username": user.username, 'logged': True})
     else:
         return JsonResponse({'logged': False})
+
+
+def get_users(request):
+    query = request.GET.get('query', '')
+
+    users = User.objects.filter(username__icontains=query).values()
+    data = list(users)
+    return JsonResponse(data, safe=False)
 
 
 # Create a post

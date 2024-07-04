@@ -33,9 +33,9 @@ const Layout = () => {
 
   const searchQuery = (e) => {
     e.preventDefault()
+
     navigate(`/search/${query}`)
   }
-
   return (
     <>
       <nav className="navbar navbar-expand-lg" style={{ backgroundColor: "#e3f2fd" }}>
@@ -55,24 +55,11 @@ const Layout = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          {
-            isUserLogged ?
-              <div className="collapse navbar-collapse" id='navbarNavDropdown'>
-                <div className="navbar-nav">
-                  <Link className="nav-link active" aria-current="page" to={`/`}>Home</Link>
-                  <Link className="nav-link" to={`/`}>Features</Link>
-                  <Link className="nav-link" to={`/`}>Pricing</Link>
-                </div>
-              </div>
-              :
-              <div className="collapse navbar-collapse" id='navbarNavDropdown'>
-                <div className="navbar-nav">
-                  <Link className="nav-link active" aria-current="page" to={`/`}>Home</Link>
-                  <Link className="nav-link" to={`/`}>Features</Link>
-                  <Link className="nav-link" to={`/`}>Pricing</Link>
-                </div>
-              </div>
-          }
+          <div className="collapse navbar-collapse" id='navbarNavDropdown'>
+            <div className="navbar-nav">
+              <Link className="nav-link active" aria-current="page" to={`/`}>Home</Link>
+            </div>
+          </div>
 
           <div className='d-flex gap-2'>
             <form className='d-flex' role="search"
@@ -84,17 +71,12 @@ const Layout = () => {
 
             {
               isUserLogged ?
-                <form className="container-fluid justify-content-start"
+                <form
                   onSubmit={(e) => userLogout(e)}>
                   <button className="btn btn-danger me-2" type="submit">Logout</button>
                 </form>
                 :
-                <form
-                  onSubmit={(e) => userLogout(e)}>
-
-                  <button className="btn btn-danger me-2" type="submit">Logout</button>
-
-                </form>
+                <></>
             }
           </div>
 

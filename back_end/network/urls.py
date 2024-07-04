@@ -8,6 +8,7 @@ urlpatterns = [
     path('login/', views.account_login, name="account_login"),
     path('logout/', views.account_logout, name="account_logout"),
     path('is_user_logged/', views.is_user_logged, name="is_user_logged"),
+    path('get_users/', views.get_users, name="get_users"),
 
     # Create a post
     path('create_post/', views.create_post, name="create_post"),
